@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        yetanotherdashboard
+        YetAnotherDashboard
       </h1>
       <h2 class="subtitle">
         simple dashboard prototype
@@ -30,7 +30,8 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
-  }
+  },
+  middleware: 'login-redirect'
 }
 </script>
 
