@@ -23,7 +23,6 @@ export default {
   /*
    ** Global CSS
    */
-  // disabled, since ant-design is handled by babel-import
   css: ['ant-design-vue/dist/antd.css'],
   /*
    ** Plugins to load before mounting the App
@@ -47,14 +46,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    babel: {
-      // plugins: [
-      //   [
-      //     'import',
-      //     { libraryName: 'ant-design-vue', style: true, libraryDirectory: 'es' }
-      //   ]
-      // ]
-    },
     extend(config, ctx) {}
   }
 }
