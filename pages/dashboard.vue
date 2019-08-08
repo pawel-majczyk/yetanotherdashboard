@@ -1,17 +1,36 @@
 <template>
   <div>
     <a-layout>
-      <a-layout-header>Header</a-layout-header>
+      <a-layout-header>Admin</a-layout-header>
       <a-layout>
-        <a-layout-sider>Sider</a-layout-sider>
-        <a-layout-content>Content</a-layout-content>
+        <a-layout-sider>Menu</a-layout-sider>
+        <a-layout-content>
+          <h2>Users:</h2>
+          <UserList v-if="users.length" :users="users" />
+        </a-layout-content>
       </a-layout>
     </a-layout>
   </div>
 </template>
 
 <script>
+import getUsers from '../middleware/api'
+import UserList from '~/components/UserList.vue'
+
 export default {
-  middleware: 'login-redirect'
+  components: { UserList },
+  data() {
+    return {
+      users: [],
+      API_URL: 'https://jsonplaceholder.typicode.com/'
+    }
+  },
+  middleware: 'login-redirect',
+  created() {
+    getUsers(this, this.$data.API_URL, 'users')
+  },
+  methods: {
+    getters: getUsers
+  }
 }
 </script>
