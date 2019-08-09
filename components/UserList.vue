@@ -1,20 +1,16 @@
 <template>
   <div>
-    <a-table :columns="columns" :data-source="usersNormalized" size="large" />
-    <!-- <ul>
-      <li v-for="user in users" :key="user.id">{{ user.name }}</li>
-    </ul> -->
+    <a-table :columns="columns" :data-source="normalizeUsers" size="large" />
   </div>
 </template>
 
 <script>
+import pickBy from 'lodash.pickby'
 export default {
   props: {
     users: {
       type: Array,
-      default: () => {
-        return ['adam', 'robert']
-      }
+      default: () => []
     }
   },
   data() {
@@ -44,24 +40,39 @@ export default {
     }
   },
   computed: {
-    usersNormalized() {
-      const normalizedArr = []
-      const usedFields = ['id', 'name', 'email', 'company']
-      this.users.map((entry) => {
-        Object.keys(entry).forEach((key) => {
-          if (!usedFields.includes(key)) delete entry[key]
-          if (key === 'company') entry.companyName = entry.company.name
-          if (key === 'name') {
-            const [name, surname] = this.extractFirstLastName(entry)
-            entry.name = name
-            entry.surname = surname
-          }
-          entry.key = entry.id
-        })
-        normalizedArr.push(entry)
+    normalizeUsers() {
+      const fieldsFilter = (value, key) => {
+        return ['id', 'email'].includes(key)
+      }
+      return this.users.map((user) => {
+        const extractedFields = pickBy(user, fieldsFilter)
+        return {
+          key: user.id,
+          name: this.extractFirstLastName(user)[0],
+          surname: this.extractFirstLastName(user)[1],
+          companyName: user.company.name,
+          ...extractedFields
+        }
       })
-      return normalizedArr
     }
+    // usersNormalized() {
+    //   const normalizedArr = []
+    //   const usedFields = ['id', 'name', 'email', 'company']
+    //   this.users.map((entry) => {
+    //     Object.keys(entry).forEach((key) => {
+    //       if (!usedFields.includes(key)) delete entry[key]
+    //       if (key === 'company') entry.companyName = entry.company.name
+    //       if (key === 'name') {
+    //         const [name, surname] = this.extractFirstLastName(entry)
+    //         entry.name = name
+    //         entry.surname = surname
+    //       }
+    //       entry.key = entry.id
+    //     })
+    //     normalizedArr.push(entry)
+    //   })
+    //   return normalizedArr
+    // }
   },
   methods: {
     extractFirstLastName(user) {
@@ -76,8 +87,8 @@ export default {
         'Prof.'
       ]
       if (bannedWords.includes(user.name.split(' ')[0])) {
-        const [, ...pureName] = user.name.split(' ')
-        return pureName
+        const [, ...splittedName] = user.name.split(' ')
+        return splittedName
       }
       return user.name.split(' ')
     }

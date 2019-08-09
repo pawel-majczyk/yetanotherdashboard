@@ -6,32 +6,43 @@
         <a-layout-sider>Menu</a-layout-sider>
         <a-layout-content>
           <h2>Users:</h2>
-          <UserList v-if="users.length" :users="users" />
-        </a-layout-content>
+          <UserList v-if="users.length" :users="users"
+        /></a-layout-content>
       </a-layout>
     </a-layout>
   </div>
 </template>
 
 <script>
-import getUsers from '../middleware/api'
 import UserList from '~/components/UserList.vue'
 import { API_URL } from '~/middleware/constants'
+import getUsers from '~/middleware/api'
 
 export default {
   components: { UserList },
   data() {
     return {
-      users: [],
       API_URL
     }
   },
-  middleware: 'login-redirect',
-  created() {
-    getUsers(this, this.API_URL, 'users')
+  computed: {
+    users: {
+      get() {
+        return this.$store.state.users.userList
+      },
+      set(list) {
+        return this.$store.commit('users/SET_USERLIST', list)
+      }
+    }
   },
-  methods: {
-    getters: getUsers
+  middleware: 'login-redirect',
+  async created() {
+    // this.$store.dispatch('users/fetchUsers', {
+    //   ctx: this,
+    //   API_URL: this.API_URL,
+    //   resource: 'users'
+    // })
+    this.users = await getUsers(this.API_URL, 'users')
   }
 }
 </script>
