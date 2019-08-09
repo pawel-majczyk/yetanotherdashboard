@@ -9,7 +9,7 @@
           simple dashboard prototype
         </h2>
       </a-row>
-      <Login v-if="!isLogged" />
+      <Login v-if="!isLogged" @logged="handleLogin" />
       <router-link v-else to="dashboard">
         <a-button type="default" size="large"
           >Logged in! Go to dashboard already!</a-button
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import Login from '~/components/Login.vue'
 
 export default {
@@ -29,6 +30,14 @@ export default {
   computed: {
     isLogged() {
       return this.$store.state.login.userLogged
+    }
+  },
+  methods: {
+    ...mapMutations({ logUserIn: 'login/logUserIn' }),
+    handleLogin(payload) {
+      if (payload.validateStatus === 'success') {
+        this.logUserIn()
+      }
     }
   }
 }

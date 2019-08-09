@@ -12,10 +12,13 @@ export const getters = {
   }
 }
 export const mutations = {
-  loginUser(state, user) {
-    if (user.name === 'admin@admin.com' && user.password === 'admin') {
-      state.userName = user.name
-      state.userLogged = true
-    }
+  logUserIn(state /*, user */) {
+    // if (user.name === 'admin@admin.com' && user.password === 'admin') {
+    // state.userName = user.name
+    // }
+    state.userLogged = true
+  },
+  logUserOut(state) {
+    state.userLogged = false
   }
 }

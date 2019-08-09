@@ -16,7 +16,7 @@
 <script>
 import getUsers from '../middleware/api'
 import UserList from '~/components/UserList.vue'
-import API_URL from '~/middleware/constants'
+import { API_URL } from '~/middleware/constants'
 
 export default {
   components: { UserList },
@@ -28,7 +28,7 @@ export default {
   },
   middleware: 'login-redirect',
   created() {
-    getUsers(this, this.$data.API_URL, 'users')
+    getUsers(this, this.API_URL, 'users')
   },
   methods: {
     getters: getUsers

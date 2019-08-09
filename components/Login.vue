@@ -82,7 +82,6 @@ export default {
       form: this.$form.createForm(this),
       loginRule: 'Login has to be an e-mail adress',
       login: {},
-      password: {},
       validUsername: VALID_USERNAME,
       validPassword: VALID_PASSWORD
     }
@@ -118,6 +117,7 @@ export default {
         e.target[1].value === this.validPassword
       ) {
         console.log('Mr. Anderson, welcome back! We missed you...')
+        this.$emit('logged', this.login)
       }
     }
   }
