@@ -16,13 +16,14 @@
 <script>
 import getUsers from '../middleware/api'
 import UserList from '~/components/UserList.vue'
+import API_URL from '~/middleware/constants'
 
 export default {
   components: { UserList },
   data() {
     return {
       users: [],
-      API_URL: 'https://jsonplaceholder.typicode.com/'
+      API_URL
     }
   },
   middleware: 'login-redirect',

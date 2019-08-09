@@ -1,19 +1,45 @@
 <template>
   <div>
     <a-row type="flex" justify="center" align="middle" class="login-panel">
-      <a-col span="8">
+      <a-col span="6">
         <a-row type="flex" justify="center" align="middle">
           <h1>Login</h1>
         </a-row>
         <a-row type="flex" justify="center" align="middle">
-          <a-form :form="form" @submit="checkCredentials">
+          <a-form :form="form" class="login-form" @submit="checkCredentials">
+            <a-form-item
+              :validate-status="login.validateStatus"
+              :help="login.errorMsg || loginRule"
+            >
+              <a-input
+                v-decorator="[
+                  'login',
+                  {
+                    rules: [
+                      {
+                        validate: validateLoginName,
+                        message: 'It has to be an e-mail address!'
+                      }
+                    ]
+                  }
+                ]"
+                placeholder="Username"
+                @change="handleLoginChange"
+              ></a-input>
+            </a-form-item>
             <a-form-item>
               <a-input
-                v-model="providedUsername"
-                placeholder="Username"
-              ></a-input>
-              <a-input
-                v-model="providedPassword"
+                v-decorator="[
+                  'password',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Cannot be empty!'
+                      }
+                    ]
+                  }
+                ]"
                 placeholder="Password"
                 type="password"
                 >password
@@ -28,7 +54,11 @@
               >
                 Password forgotten
               </a>
-              <a-button type="primary" icon="unlock" size="large"
+              <a-button
+                type="primary"
+                html-type="submit"
+                icon="unlock"
+                size="large"
                 >Login</a-button
               >
             </a-row>
@@ -40,14 +70,21 @@
 </template>
 
 <script>
+import {
+  EMAIL_PATTERN,
+  VALID_USERNAME,
+  VALID_PASSWORD
+} from '~/middleware/constants'
+
 export default {
   data() {
     return {
       form: this.$form.createForm(this),
-      providedUsername: '',
-      providedPassword: '',
-      validUsername: 'admin@admin.com',
-      validPassword: 'admin'
+      loginRule: 'Login has to be an e-mail adress',
+      login: {},
+      password: {},
+      validUsername: VALID_USERNAME,
+      validPassword: VALID_PASSWORD
     }
   },
   computed: {
@@ -60,8 +97,29 @@ export default {
       e.preventDefault()
       alert(this.validData)
     },
-    validateLoginName() {},
-    checkCredentials() {}
+    handleLoginChange(e) {
+      this.login = this.validateLoginName(e.target.value)
+    },
+    validateLoginName(name) {
+      if (EMAIL_PATTERN.test(name))
+        return {
+          validateStatus: 'success',
+          errorMsg: '✔'
+        }
+      return {
+        validateStatus: 'error',
+        errorMsg: 'This login is not a valid e-mail!'
+      }
+    },
+    checkCredentials(e) {
+      e.preventDefault()
+      if (
+        e.target[0].value === this.validUsername &&
+        e.target[1].value === this.validPassword
+      ) {
+        console.log('Mr. Anderson, welcome back! We missed you...')
+      }
+    }
   }
 }
 </script>
@@ -69,6 +127,9 @@ export default {
 <style scoped>
 .login-panel {
   background: #eee;
-  padding: 2em 0;
+  padding: 2em;
+}
+.login-form {
+  width: 100%;
 }
 </style>
