@@ -32,8 +32,6 @@ Vue.use(aMenu)
 Vue.use(aRow)
 Vue.use(aTable)
 
-console.log(aButton)
-
 // Vue.use(Antd)
 
 // Vue.use(Affix)
