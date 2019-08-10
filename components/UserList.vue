@@ -6,15 +6,13 @@
 
 <script>
 import pickBy from 'lodash.pickby'
+import { API_URL } from '~/middleware/constants'
+import getUsers from '~/middleware/api'
+
 export default {
-  props: {
-    users: {
-      type: Array,
-      default: () => []
-    }
-  },
   data() {
     return {
+      API_URL,
       columns: [
         {
           title: 'ID',
@@ -24,10 +22,10 @@ export default {
           title: 'Name',
           dataIndex: 'name'
         },
-        {
-          title: 'Surname',
-          dataIndex: 'surname'
-        },
+        // {
+        //   title: 'Surname',
+        //   dataIndex: 'surname'
+        // },
         {
           title: 'E-mail',
           dataIndex: 'email'
@@ -40,6 +38,14 @@ export default {
     }
   },
   computed: {
+    users: {
+      get() {
+        return this.$store.state.users.userList
+      },
+      set(list) {
+        return this.$store.commit('users/SET_USERLIST', list)
+      }
+    },
     normalizeUsers() {
       const fieldsFilter = (value, key) => {
         return ['id', 'email'].includes(key)
@@ -73,6 +79,9 @@ export default {
     //   })
     //   return normalizedArr
     // }
+  },
+  async created() {
+    this.users = await getUsers(this.API_URL, 'users')
   },
   methods: {
     extractFirstLastName(user) {

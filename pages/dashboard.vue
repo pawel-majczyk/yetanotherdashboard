@@ -15,7 +15,7 @@
           :default-collapsed="false"
         >
           <a-menu
-            :default-selected-keys="['1']"
+            :default-selected-keys="['2']"
             mode="inline"
             theme="light"
             :inline-collapsed="collapsed"
@@ -26,13 +26,13 @@
                 <span>Inbox</span>
               </router-link>
             </a-menu-item>
-            <a-menu-item key="3">
+            <a-menu-item key="2">
               <router-link to="/dashboard/users">
-                <a-icon type="pie-chart" />
-                <span>ate by Pac-Man</span>
+                <a-icon type="database" />
+                <span>User's Databae</span>
               </router-link>
             </a-menu-item>
-            <a-menu-item key="2">
+            <a-menu-item key="3">
               <router-link to="/dashboard/btc-market">
                 <a-icon type="area-chart" />
                 <span>BTC Market</span>
@@ -48,7 +48,7 @@
           <router-view></router-view>
           <template v-if="isHomePage">
             <h2 class="content_title">Users:</h2>
-            <UserList v-if="users.length" :users="users" />
+            <UserList />
           </template>
         </a-layout-content>
       </a-layout>
@@ -59,14 +59,11 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 import UserList from '~/components/UserList.vue'
-import { API_URL } from '~/middleware/constants'
-import getUsers from '~/middleware/api'
 
 export default {
   components: { UserList },
   data() {
     return {
-      API_URL,
       collapsed: true
     }
   },
@@ -74,20 +71,9 @@ export default {
     ...mapGetters({
       getUserName: 'login/getLoggedUserName'
     }),
-    users: {
-      get() {
-        return this.$store.state.users.userList
-      },
-      set(list) {
-        return this.$store.commit('users/SET_USERLIST', list)
-      }
-    },
     isHomePage() {
       return this.$route.fullPath === '/dashboard'
     }
-  },
-  async created() {
-    this.users = await getUsers(this.API_URL, 'users')
   },
   methods: {
     ...mapMutations({ logUserOut: 'login/logUserOut' }),
