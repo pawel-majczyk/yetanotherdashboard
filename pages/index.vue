@@ -18,7 +18,11 @@
     >
       <LoginForm v-if="!isLogged" @logged="handleLogin" />
       <router-link v-else to="dashboard">
-        <a-button type="default" size="large" class="login__enter-dashboard-btn"
+        <a-button
+          ref="enter"
+          type="default"
+          size="large"
+          class="login__enter-dashboard-btn"
           >Succesfully logged in! Go to dashboard
           <a-icon type="right" />
         </a-button>
@@ -45,6 +49,7 @@ export default {
     handleLogin(payload) {
       if (payload.validateStatus === 'success') {
         this.logUserIn()
+        this.$nextTick(() => this.$refs.enter.$el.focus())
       }
     }
   }
