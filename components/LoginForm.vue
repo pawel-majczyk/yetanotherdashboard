@@ -30,6 +30,7 @@
                   }
                 ]"
                 name="login"
+                :disabled="lock"
                 placeholder="Username"
                 @change="handleLoginChange"
               ></a-input>
@@ -122,6 +123,7 @@ export default {
     },
     checkCredentials(e) {
       e.preventDefault()
+      this.form.validateFields()
       if (this.lock) return
       if (
         e.target[0].value === this.validUsername &&
