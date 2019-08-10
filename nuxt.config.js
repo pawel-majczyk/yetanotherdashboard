@@ -1,3 +1,7 @@
+const env = require('dotenv').config()
+
+console.log(env)
+
 const routerBase =
   process.env.DEPLOY_ENV === 'GH_PAGES'
     ? {
