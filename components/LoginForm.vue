@@ -1,22 +1,17 @@
 <template>
   <div>
-    <a-row
-      type="flex"
-      justify="center"
-      align="middle"
-      class="login-form__panel"
-    >
-      <a-col :xs="20" :sm="12" :md="10">
-        <a-row type="flex" justify="center" align="middle">
+    <aRow type="flex" justify="center" align="middle" class="login-form__panel">
+      <aCol :xs="20" :sm="12" :md="10">
+        <aRow type="flex" justify="center" align="middle">
           <h1>Login</h1>
-        </a-row>
-        <a-row type="flex" justify="center" align="middle">
-          <a-form :form="form" class="login-form" @submit="checkCredentials">
-            <a-form-item
+        </aRow>
+        <aRow type="flex" justify="center" align="middle">
+          <aForm :form="form" class="login-form" @submit="checkCredentials">
+            <aForm-item
               :validate-status="login.validateStatus"
               :help="login.errorMsg || loginRule"
             >
-              <a-input
+              <aInput
                 ref="loginInput"
                 v-decorator="[
                   'login',
@@ -33,10 +28,10 @@
                 :disabled="lock"
                 placeholder="Username"
                 @change="handleLoginChange"
-              ></a-input>
-            </a-form-item>
-            <a-form-item>
-              <a-input
+              ></aInput>
+            </aForm-item>
+            <aForm-item>
+              <aInput
                 v-decorator="[
                   'password',
                   {
@@ -51,9 +46,9 @@
                 placeholder="Password"
                 type="password"
                 >password
-              </a-input>
-            </a-form-item>
-            <a-row type="flex" justify="space-between" align="middle">
+              </aInput>
+            </aForm-item>
+            <aRow type="flex" justify="space-between" align="middle">
               <a
                 href="#"
                 title="Click to get your login data reminded"
@@ -62,20 +57,20 @@
               >
                 Password forgotten
               </a>
-              <a-button
+              <aButton
                 ref="submitBtn"
                 :type="!lock ? 'primary' : 'danger'"
                 :icon="!lock ? 'unlock' : 'lock'"
                 :disabled="lock"
                 html-type="submit"
                 size="large"
-                >Login</a-button
+                >Login</aButton
               >
-            </a-row>
-          </a-form>
-        </a-row>
-      </a-col>
-    </a-row>
+            </aRow>
+          </aForm>
+        </aRow>
+      </aCol>
+    </aRow>
   </div>
 </template>
 

@@ -1,58 +1,58 @@
 <template>
   <div class="dashboard">
-    <a-layout>
-      <a-layout-header class="dashboard__header">
+    <aLayout>
+      <aLayout-header class="dashboard__header">
         <div class="dashboard__header-title">
           <router-link to="/dashboard">
-            <h1><a-icon type="user" /> {{ getUserName }}</h1>
+            <h1><aIcon type="user" /> {{ getUserName }}</h1>
           </router-link>
         </div>
-      </a-layout-header>
-      <a-layout>
-        <a-layout-sider
+      </aLayout-header>
+      <aLayout>
+        <aLayout-sider
           theme="light"
           class="dashboard__sider"
           :default-collapsed="false"
         >
-          <a-menu
+          <aMenu
             :default-selected-keys="['2']"
             mode="inline"
             theme="light"
             :inline-collapsed="collapsed"
           >
-            <a-menu-item key="1">
+            <aMenu-item key="1">
               <router-link to="/dashboard/inbox">
-                <a-icon type="inbox" />
+                <aIcon type="inbox" />
                 <span>Inbox</span>
               </router-link>
-            </a-menu-item>
-            <a-menu-item key="2">
+            </aMenu-item>
+            <aMenu-item key="2">
               <router-link to="/dashboard/users">
-                <a-icon type="database" />
+                <aIcon type="database" />
                 <span>User's Databae</span>
               </router-link>
-            </a-menu-item>
-            <a-menu-item key="3">
+            </aMenu-item>
+            <aMenu-item key="3">
               <router-link to="/dashboard/btc-market">
-                <a-icon type="area-chart" />
+                <aIcon type="area-chart" />
                 <span>BTC Market</span>
               </router-link>
-            </a-menu-item>
-            <a-menu-item key="4" @click="handleLogout">
-              <a-icon type="logout" />
+            </aMenu-item>
+            <aMenu-item key="4" @click="handleLogout">
+              <aIcon type="logout" />
               <span>Logout</span>
-            </a-menu-item>
-          </a-menu>
-        </a-layout-sider>
-        <a-layout-content>
+            </aMenu-item>
+          </aMenu>
+        </aLayout-sider>
+        <aLayout-content>
           <router-view></router-view>
           <template v-if="isHomePage">
             <h2 class="content_title">Users:</h2>
             <UserList />
           </template>
-        </a-layout-content>
-      </a-layout>
-    </a-layout>
+        </aLayout-content>
+      </aLayout>
+    </aLayout>
   </div>
 </template>
 

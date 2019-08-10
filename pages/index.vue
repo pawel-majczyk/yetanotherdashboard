@@ -1,33 +1,26 @@
 <template>
   <div class="container">
-    <a-col :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="title">
+    <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="title">
       <h1 class="title__text">
         Yet Another Dashboard
       </h1>
       <h2 class="title__subtext">
         simple dashboard prototype
       </h2>
-    </a-col>
-    <a-col
-      :xs="24"
-      :sm="22"
-      :md="20"
-      :lg="20"
-      :xl="14"
-      class="login__container"
-    >
+    </aCol>
+    <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login__container">
       <LoginForm v-if="!isLogged" @logged="handleLogin" />
       <router-link v-else to="dashboard">
-        <a-button
+        <aButton
           ref="enter"
           type="default"
           size="large"
           class="login__enter-dashboard-btn"
           >Succesfully logged in! Go to dashboard
-          <a-icon type="right" />
-        </a-button>
+          <aIcon type="right" />
+        </aButton>
       </router-link>
-    </a-col>
+    </aCol>
   </div>
 </template>
 

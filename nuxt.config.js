@@ -37,7 +37,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['ant-design-vue/dist/antd.css'],
+  // css: ['ant-design-vue/dist/antd.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -60,6 +60,27 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    module: {
+      rules: [
+        {
+          test: /\.less$/,
+          loader: 'less-loader',
+          options: { javascriptEnabled: true }
+        }
+      ]
+    },
+    extend(config, ctx) {},
+    babel: {
+      plugins: [
+        [
+          'import',
+          {
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'lib', // default: lib
+            style: 'css'
+          }
+        ]
+      ]
+    }
   }
 }
