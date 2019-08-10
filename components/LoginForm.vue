@@ -1,7 +1,12 @@
 <template>
   <div>
-    <a-row type="flex" justify="center" align="middle" class="login-panel">
-      <a-col span="6">
+    <a-row
+      type="flex"
+      justify="center"
+      align="middle"
+      class="login-form__panel"
+    >
+      <a-col :xs="20" :sm="12" :md="10">
         <a-row type="flex" justify="center" align="middle">
           <h1>Login</h1>
         </a-row>
@@ -55,9 +60,11 @@
                 Password forgotten
               </a>
               <a-button
-                type="primary"
+                ref="submitBtn"
+                :type="!lock ? 'primary' : 'danger'"
+                :icon="!lock ? 'unlock' : 'lock'"
+                :disabled="lock"
                 html-type="submit"
-                icon="unlock"
                 size="large"
                 >Login</a-button
               >
@@ -83,7 +90,8 @@ export default {
       loginRule: 'Login has to be an e-mail adress',
       login: {},
       validUsername: VALID_USERNAME,
-      validPassword: VALID_PASSWORD
+      validPassword: VALID_PASSWORD,
+      lock: false
     }
   },
   computed: {
@@ -107,17 +115,27 @@ export default {
         }
       return {
         validateStatus: 'error',
-        errorMsg: 'This login is not a valid e-mail!'
+        errorMsg: '❌ This login is not a valid e-mail!'
       }
     },
     checkCredentials(e) {
       e.preventDefault()
+      if (this.lock) return
       if (
         e.target[0].value === this.validUsername &&
         e.target[1].value === this.validPassword
       ) {
         console.log('Mr. Anderson, welcome back! We missed you...')
         this.$emit('logged', this.login)
+      } else {
+        this.lock = true
+        this.login = {
+          validateStatus: 'error',
+          errorMsg: 'Incorrect login or password'
+        }
+        setTimeout(() => {
+          this.lock = false
+        }, 1500)
       }
     }
   }
@@ -125,8 +143,7 @@ export default {
 </script>
 
 <style scoped>
-.login-panel {
-  background: #eee;
+.login-form__panel {
   padding: 2em;
 }
 .login-form {
