@@ -3,7 +3,9 @@
     <a-layout>
       <a-layout-header class="dashboard__header">
         <div class="dashboard__header-title">
-          <h1><a-icon type="user" /> {{ getUserName }}</h1>
+          <router-link to="/dashboard">
+            <h1><a-icon type="user" /> {{ getUserName }}</h1>
+          </router-link>
         </div>
       </a-layout-header>
       <a-layout>
@@ -19,16 +21,22 @@
             :inline-collapsed="collapsed"
           >
             <a-menu-item key="1">
-              <a-icon type="inbox" />
-              <span>Inbox</span>
+              <router-link to="/dashboard/inbox">
+                <a-icon type="inbox" />
+                <span>Inbox</span>
+              </router-link>
             </a-menu-item>
             <a-menu-item key="3">
-              <a-icon type="pie-chart" />
-              <span>Costs</span>
+              <router-link to="/dashboard/users">
+                <a-icon type="pie-chart" />
+                <span>ate by Pac-Man</span>
+              </router-link>
             </a-menu-item>
             <a-menu-item key="2">
-              <a-icon type="area-chart" />
-              <span>Income</span>
+              <router-link to="/dashboard/btc-market">
+                <a-icon type="area-chart" />
+                <span>BTC Market</span>
+              </router-link>
             </a-menu-item>
             <a-menu-item key="4" @click="handleLogout">
               <a-icon type="logout" />
@@ -37,9 +45,12 @@
           </a-menu>
         </a-layout-sider>
         <a-layout-content>
-          <h2 class="content_title">Users:</h2>
-          <UserList v-if="users.length" :users="users"
-        /></a-layout-content>
+          <router-view></router-view>
+          <template v-if="isHomePage">
+            <h2 class="content_title">Users:</h2>
+            <UserList v-if="users.length" :users="users" />
+          </template>
+        </a-layout-content>
       </a-layout>
     </a-layout>
   </div>
@@ -70,6 +81,9 @@ export default {
       set(list) {
         return this.$store.commit('users/SET_USERLIST', list)
       }
+    },
+    isHomePage() {
+      return this.$route.fullPath === '/dashboard'
     }
   },
   async created() {
