@@ -48,7 +48,7 @@ export default {
     ...mapMutations({ logUserIn: 'login/logUserIn' }),
     handleLogin(payload) {
       if (payload.validateStatus === 'success') {
-        this.logUserIn()
+        this.logUserIn(payload.name)
         this.$nextTick(() => this.$refs.enter.$el.focus())
       }
     }

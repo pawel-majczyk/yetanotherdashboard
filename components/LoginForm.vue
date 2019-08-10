@@ -17,6 +17,7 @@
               :help="login.errorMsg || loginRule"
             >
               <a-input
+                ref="loginInput"
                 v-decorator="[
                   'login',
                   {
@@ -28,6 +29,7 @@
                     ]
                   }
                 ]"
+                name="login"
                 placeholder="Username"
                 @change="handleLoginChange"
               ></a-input>
@@ -127,7 +129,10 @@ export default {
       ) {
         console.log('Mr. Anderson, welcome back! We missed you...')
         this.login.validateStatus = 'success'
-        this.$emit('logged', this.login)
+        this.$emit('logged', {
+          name: this.$refs.loginInput.value,
+          ...this.login
+        })
       } else {
         this.lock = true
         this.login = {

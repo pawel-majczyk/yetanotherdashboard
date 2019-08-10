@@ -3,7 +3,7 @@
     <a-layout>
       <a-layout-header class="dashboard__header">
         <div class="dashboard__header-title">
-          <h1><a-icon type="user" /> Admin</h1>
+          <h1><a-icon type="user" /> {{ getUserName }}</h1>
         </div>
       </a-layout-header>
       <a-layout>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import UserList from '~/components/UserList.vue'
 import { API_URL } from '~/middleware/constants'
 import getUsers from '~/middleware/api'
@@ -60,6 +60,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      getUserName: 'login/getLoggedUserName'
+    }),
     users: {
       get() {
         return this.$store.state.users.userList
@@ -89,6 +92,7 @@ export default {
 <style>
 .dashboard .dashboard__header .dashboard__header-title * {
   color: #fff;
+  text-transform: capitalize;
 }
 
 .dashboard__sider {

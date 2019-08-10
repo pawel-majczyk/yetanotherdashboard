@@ -12,10 +12,8 @@ export const getters = {
   }
 }
 export const mutations = {
-  logUserIn(state /*, user */) {
-    // if (user.name === 'admin@admin.com' && user.password === 'admin') {
-    // state.userName = user.name
-    // }
+  logUserIn(state, user) {
+    state.userName = user.split('@')[0]
     state.userLogged = true
   },
   logUserOut(state) {
