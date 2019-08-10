@@ -102,6 +102,9 @@ export default {
       return `user: "${this.validUsername}" | password: "${this.validPassword}"`
     }
   },
+  mounted() {
+    this.$refs.loginInput.$el.focus()
+  },
   methods: {
     remindPassword(e) {
       e.preventDefault()
