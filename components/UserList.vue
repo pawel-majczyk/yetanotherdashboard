@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-table :columns="columns" :data-source="normalizeUsers" size="large" />
+    <aTable :columns="columns" :data-source="normalizeUsers" size="large" />
   </div>
 </template>
 
