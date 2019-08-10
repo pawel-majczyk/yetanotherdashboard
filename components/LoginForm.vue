@@ -126,6 +126,7 @@ export default {
         e.target[1].value === this.validPassword
       ) {
         console.log('Mr. Anderson, welcome back! We missed you...')
+        this.login.validateStatus = 'success'
         this.$emit('logged', this.login)
       } else {
         this.lock = true
