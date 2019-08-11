@@ -1,6 +1,6 @@
 <template>
   <div>
-    <aTable :columns="columns" :data-source="normalizeUsers" size="large" />
+    <aTable :columns="columns" :data-source="usersNormalized" size="large" />
   </div>
 </template>
 
@@ -46,10 +46,8 @@ export default {
         return this.$store.commit('users/SET_USERLIST', list)
       }
     },
-    normalizeUsers() {
-      const fieldsFilter = (value, key) => {
-        return ['id', 'email'].includes(key)
-      }
+    usersNormalized() {
+      const fieldsFilter = (value, key) => ['id', 'email'].includes(key)
       return this.users.map((user) => {
         const extractedFields = pickBy(user, fieldsFilter)
         return {
@@ -61,24 +59,6 @@ export default {
         }
       })
     }
-    // usersNormalized() {
-    //   const normalizedArr = []
-    //   const usedFields = ['id', 'name', 'email', 'company']
-    //   this.users.map((entry) => {
-    //     Object.keys(entry).forEach((key) => {
-    //       if (!usedFields.includes(key)) delete entry[key]
-    //       if (key === 'company') entry.companyName = entry.company.name
-    //       if (key === 'name') {
-    //         const [name, surname] = this.extractFirstLastName(entry)
-    //         entry.name = name
-    //         entry.surname = surname
-    //       }
-    //       entry.key = entry.id
-    //     })
-    //     normalizedArr.push(entry)
-    //   })
-    //   return normalizedArr
-    // }
   },
   async created() {
     this.users = await getUsers(this.API_URL, 'users')

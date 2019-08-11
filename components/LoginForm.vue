@@ -130,7 +130,7 @@ export default {
     },
     checkCredentials(e) {
       e.preventDefault()
-      if (this.lock) return
+      if (this.lock) return false
       this.form.validateFields()
       if (
         e.target[0].value === this.validUsername &&
@@ -142,6 +142,7 @@ export default {
           name: this.$refs.loginInput.value,
           ...this.login
         })
+        return false
       } else {
         this.lock = true
         this.login = {
@@ -151,6 +152,7 @@ export default {
         setTimeout(() => {
           this.lock = false
         }, 1500)
+        return false
       }
     }
   }
