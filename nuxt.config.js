@@ -14,9 +14,7 @@ const routerBase =
 export default {
   ...routerBase,
   mode: 'spa',
-  /*
-   ** Headers of the page
-   */
+  /* Headers of the page */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -30,17 +28,18 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-  /*
-   ** Customize the progress-bar color
-   */
+  /* Customize the progress-bar color */
   loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
-  // css: ['ant-design-vue/dist/antd.css'],
-  /*
-   ** Plugins to load before mounting the App
-   */
+  /* Global CSS */
+  // ant-design-vue - disabled bacause babel-import-plugin handles
+  // css: ['ant-design-vue/dist/antd.min.css'],
+  // css: [
+  //   {
+  //     src: 'ant-design-vue/dist/antd.less',
+  //     lang: 'less'
+  //   }
+  // ],
+  /* Plugins to load before mounting the App */
   plugins: ['@/plugins/antd-ui'],
   /*
    ** Nuxt.js dev-modules
@@ -49,35 +48,22 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
-  /*
-   ** Nuxt.js modules
-   */
+  /* Nuxt.js modules */
   modules: [],
-  /*
-   ** Build configuration
-   */
+  /* Build configuration */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    module: {
-      rules: [
-        {
-          test: /\.less$/,
-          loader: 'less-loader',
-          options: { javascriptEnabled: true }
-        }
-      ]
+    /* You can extend webpack config here */
+    extend(config, ctx) {
+      ctx.loaders.less.javascriptEnabled = true
     },
-    extend(config, ctx) {},
     babel: {
       plugins: [
         [
           'import',
           {
             libraryName: 'ant-design-vue',
-            libraryDirectory: 'lib', // default: lib
-            style: 'css'
+            // libraryDirectory: 'es', // default: lib
+            style: true
           }
         ]
       ]
