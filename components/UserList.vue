@@ -7,7 +7,6 @@
 <script>
 import { mapActions } from 'vuex'
 import pickBy from 'lodash.pickby'
-// import getUsers from '~/middleware/api'
 
 export default {
   data() {
