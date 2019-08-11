@@ -44,7 +44,7 @@
             </aMenu-item>
           </aMenu>
         </aLayout-sider>
-        <aLayout-content>
+        <aLayout-content class="router-view__content">
           <transition name="router-view" mode="out-in">
             <router-view />
           </transition>

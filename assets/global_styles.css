@@ -4,6 +4,11 @@
   display: flex;
 }
 
+.router-view__content {
+  padding: 1em;
+  color: red;
+}
+
 /* === animations === */
 
 .router-view-enter-active, .router-view-leave-active {

@@ -11,13 +11,19 @@
     <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login__container">
       <transition name="page" mode="out-in" @after-enter="focusForEnter">
         <LoginForm v-if="!isLogged" key="isLogged" @logged="handleLogin" />
-        <router-link v-if="isLogged" key="isLogged" to="dashboard">
+        <router-link
+          v-if="isLogged"
+          ref="enter"
+          key="isLogged"
+          to="dashboard"
+          class="login__enter-dashboard-btn"
+        >
           <aButton
-            ref="enter"
             type="default"
             size="large"
             class="login__enter-dashboard-btn"
-            >Succesfully logged in! Go to dashboard
+          >
+            Succesfully logged in! Go to dashboard
             <aIcon type="right" />
           </aButton>
         </router-link>
@@ -105,6 +111,7 @@ export default {
   align-content: center;
 }
 .login__enter-dashboard-btn {
-  margin: 4em auto;
+  width: fit-content;
+  align-self: center;
 }
 </style>

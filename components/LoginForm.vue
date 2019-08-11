@@ -7,6 +7,7 @@
         </aRow>
         <aRow type="flex" justify="center" align="middle">
           <aForm
+            ref="loginForm"
             :form="form"
             class="login-form"
             :class="loginFailedClass"
@@ -157,9 +158,6 @@ export default {
 </script>
 
 <style scoped>
-.login-form__panel {
-  padding: 2em;
-}
 .login-form {
   width: 100%;
 }
