@@ -62,11 +62,11 @@ export default {
 <style>
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  width: 100%;
   align-items: center;
   text-align: center;
-  width: 100%;
-  flex-direction: column;
 }
 
 .title {
@@ -74,21 +74,21 @@ export default {
 }
 
 .title__text {
+  display: block;
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
   font-weight: 300;
   font-size: 4rem;
-  color: #0a0a0a;
   letter-spacing: 1px;
+  color: #0a0a0a;
 }
 
 .title__subtext {
+  padding-bottom: 5px;
   font-weight: 300;
   font-size: 2.25rem;
-  color: #666;
   word-spacing: 5px;
-  padding-bottom: 5px;
+  color: #666;
 }
 
 .links {
@@ -96,15 +96,15 @@ export default {
 }
 
 .login__container {
-  background: linear-gradient(#eee, #fff);
-  min-height: 20em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  min-height: 20em;
+  background: linear-gradient(#eee, #fff);
 }
 .login__enter-dashboard-btn {
-  width: fit-content;
   align-self: center;
+  width: fit-content;
 }
 </style>

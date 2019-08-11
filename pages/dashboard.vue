@@ -94,8 +94,8 @@ export default {
 
 <style>
 .dashboard .dashboard__header .dashboard__header-title * {
-  color: #fff;
   text-transform: capitalize;
+  color: #fff;
 }
 
 .dashboard__sider {

@@ -159,7 +159,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .login-form {
   width: 100%;
 }
