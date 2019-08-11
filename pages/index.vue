@@ -9,17 +9,19 @@
       </h2>
     </aCol>
     <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login__container">
-      <LoginForm v-if="!isLogged" @logged="handleLogin" />
-      <router-link v-if="isLogged" to="dashboard">
-        <aButton
-          ref="enter"
-          type="default"
-          size="large"
-          class="login__enter-dashboard-btn"
-          >Succesfully logged in! Go to dashboard
-          <aIcon type="right" />
-        </aButton>
-      </router-link>
+      <transition name="page" mode="out-in" @after-enter="focusForEnter">
+        <LoginForm v-if="!isLogged" key="isLogged" @logged="handleLogin" />
+        <router-link v-if="isLogged" key="isLogged" to="dashboard">
+          <aButton
+            ref="enter"
+            type="default"
+            size="large"
+            class="login__enter-dashboard-btn"
+            >Succesfully logged in! Go to dashboard
+            <aIcon type="right" />
+          </aButton>
+        </router-link>
+      </transition>
     </aCol>
   </div>
 </template>
@@ -42,8 +44,10 @@ export default {
     handleLogin(payload) {
       if (payload.validateStatus === 'success') {
         this.logUserIn(payload.name)
-        this.$nextTick(() => this.$refs.enter.$el.focus())
       }
+    },
+    focusForEnter() {
+      this.$nextTick(() => this.$refs.enter.$el.focus())
     }
   }
 }
