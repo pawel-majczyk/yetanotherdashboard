@@ -1,9 +1,9 @@
 <template>
-  <div class="dashboard">
+  <div class="base-container dashboard">
     <aLayout>
       <aLayout-header class="dashboard__header">
         <div class="dashboard__header-title">
-          <router-link to="/dashboard">
+          <router-link to="/">
             <h1><aIcon type="user" /> {{ getUserName }}</h1>
           </router-link>
         </div>
@@ -49,7 +49,6 @@
             <router-view />
           </transition>
           <template v-if="isHomePage">
-            <h2 class="content_title">Users:</h2>
             <UserList />
           </template>
         </aLayout-content>

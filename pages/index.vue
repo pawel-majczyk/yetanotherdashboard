@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="base-container container">
     <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="title">
       <h1 class="title__text">
         Yet Another Dashboard
@@ -55,8 +55,6 @@ export default {
 
 <style>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
