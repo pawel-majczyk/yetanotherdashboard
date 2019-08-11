@@ -1,6 +1,6 @@
 <template>
-  <div class="users-component">
-    <h2 class="content_title">Users:</h2>
+  <div>
+    <h2>Users:</h2>
     <UserList />
   </div>
 </template>

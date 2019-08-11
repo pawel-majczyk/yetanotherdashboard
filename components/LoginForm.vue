@@ -1,6 +1,6 @@
 <template>
   <div>
-    <aRow type="flex" justify="center" align="middle" class="login-form__panel">
+    <aRow type="flex" justify="center" align="middle" class="login-form">
       <aCol :xs="20" :sm="12" :md="10">
         <aRow type="flex" justify="center" align="middle">
           <h1>Login</h1>
@@ -9,7 +9,7 @@
           <aForm
             layout="vertical"
             :form="form"
-            class="login-form"
+            class="login-form__fields"
             :class="loginFailedClass"
             @submit.prevent.stop="checkCredentials"
           >
@@ -59,7 +59,6 @@
               <a
                 href="#"
                 title="Click to get your login data reminded"
-                class="remindPassword"
                 @click="remindPassword"
               >
                 Password forgotten
@@ -160,7 +159,7 @@ export default {
 </script>
 
 <style>
-.login-form {
+.login-form__fields {
   width: 100%;
 }
 </style>

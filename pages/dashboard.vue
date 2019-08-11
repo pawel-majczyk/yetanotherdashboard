@@ -46,7 +46,7 @@
             </aMenu-item>
           </aMenu>
         </aLayout-sider>
-        <aLayout-content class="router-view__content">
+        <aLayout-content class="dashboard__router-view-content">
           <transition name="router-view" mode="out-in">
             <router-view />
           </transition>
@@ -106,5 +106,10 @@ export default {
 .content_title {
   display: block;
   text-align: center;
+}
+
+.dashboard__router-view-content {
+  padding: 1em;
+  color: red;
 }
 </style>
