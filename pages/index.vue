@@ -70,12 +70,7 @@ export default {
 }
 
 .title {
-  background: linear-gradient(#ee40df, #02062e);
-  border: 0.25em solid #02062e;
-  border-top: 0.25em solid #65faff;
-  border-top-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
-  border-bottom: 0;
+  background: peachpuff;
 }
 
 .title__text {
@@ -84,14 +79,14 @@ export default {
   display: block;
   font-weight: 300;
   font-size: 4rem;
-  color: #65faff;
+  color: #0a0a0a;
   letter-spacing: 1px;
 }
 
 .title__subtext {
   font-weight: 300;
   font-size: 2.25rem;
-  color: #526488;
+  color: #666;
   word-spacing: 5px;
   padding-bottom: 5px;
 }
@@ -101,9 +96,7 @@ export default {
 }
 
 .login__container {
-  border: 0.25em solid #02062e;
-  border-top: 0;
-  background: #eee;
+  background: linear-gradient(#eee, #fff);
   min-height: 20em;
   display: flex;
   flex-direction: column;
