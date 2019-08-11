@@ -10,7 +10,7 @@
     </aCol>
     <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login__container">
       <LoginForm v-if="!isLogged" @logged="handleLogin" />
-      <router-link v-else to="dashboard">
+      <router-link v-if="isLogged" to="dashboard">
         <aButton
           ref="enter"
           type="default"

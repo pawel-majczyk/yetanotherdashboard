@@ -31,6 +31,7 @@ export default {
   /* Customize the progress-bar color */
   loading: { color: '#fff' },
   /* Global CSS */
+  css: ['~/assets/global_styles.css'],
   // ant-design-vue - disabled bacause babel-import-plugin handles
   // css: ['ant-design-vue/dist/antd.min.css'],
   // css: [

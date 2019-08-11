@@ -45,7 +45,9 @@
           </aMenu>
         </aLayout-sider>
         <aLayout-content>
-          <router-view></router-view>
+          <transition name="router-view" mode="out-in">
+            <router-view />
+          </transition>
           <template v-if="isHomePage">
             <h2 class="content_title">Users:</h2>
             <UserList />
