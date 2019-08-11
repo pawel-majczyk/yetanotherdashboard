@@ -63,7 +63,7 @@ export default {
           'import',
           {
             libraryName: 'ant-design-vue',
-            // libraryDirectory: 'es', // default: lib
+            libraryDirectory: 'es', // default: lib
             style: true
           }
         ]
