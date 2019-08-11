@@ -1,4 +1,5 @@
 import getUsers from '~/middleware/api'
+import { API_URL } from '~/middleware/constants'
 
 export const state = () => ({
   userList: []
@@ -13,7 +14,11 @@ export const getters = {
   userList: (state) => state.userList
 }
 export const actions = {
-  fetchUsers(state, { ctx, API_URL, resource }) {
-    ctx.store.commit('SET_USERLIST', getUsers(ctx, API_URL, resource))
+  async fetchUsers() {
+    if (this.state.users.userList.length === 0) {
+      return this.commit('users/SET_USERLIST', await getUsers(API_URL, 'users'))
+    }
+    console.log('Users alredy present, skipping fetch...')
+    return false
   }
 }

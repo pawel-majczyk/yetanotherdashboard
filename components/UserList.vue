@@ -5,14 +5,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import pickBy from 'lodash.pickby'
-import { API_URL } from '~/middleware/constants'
-import getUsers from '~/middleware/api'
+// import getUsers from '~/middleware/api'
 
 export default {
   data() {
     return {
-      API_URL,
       columns: [
         {
           title: 'ID',
@@ -61,9 +60,10 @@ export default {
     }
   },
   async created() {
-    this.users = await getUsers(this.API_URL, 'users')
+    await this.fetchUsers(this.API_URL)
   },
   methods: {
+    ...mapActions({ fetchUsers: 'users/fetchUsers' }),
     extractFirstLastName(user) {
       const bannedWords = [
         'Mr.',
