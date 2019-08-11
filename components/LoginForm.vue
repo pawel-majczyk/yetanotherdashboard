@@ -7,7 +7,7 @@
         </aRow>
         <aRow type="flex" justify="center" align="middle">
           <aForm
-            ref="loginForm"
+            layout="vertical"
             :form="form"
             class="login-form"
             :class="loginFailedClass"
@@ -18,7 +18,6 @@
               :help="login.errorMsg || loginRule"
             >
               <aInput
-                ref="loginInput"
                 v-decorator="[
                   'login',
                   {
@@ -31,6 +30,7 @@
                   }
                 ]"
                 name="login"
+                autocomplete="username"
                 :disabled="lock"
                 placeholder="Username"
                 @change="handleLoginChange"
@@ -49,6 +49,7 @@
                     ]
                   }
                 ]"
+                autocomplete="current-password"
                 placeholder="Password"
                 type="password"
                 >password
@@ -64,7 +65,6 @@
                 Password forgotten
               </a>
               <aButton
-                ref="submitBtn"
                 :type="!lock ? 'primary' : 'danger'"
                 :icon="!lock ? 'unlock' : 'lock'"
                 :disabled="lock"
@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.loginInput.$el.focus()
+    this.form.instances.login.$el.focus()
   },
   methods: {
     remindPassword(e) {
@@ -139,7 +139,7 @@ export default {
         console.log('Mr. Anderson, welcome back! We missed you...')
         this.login.validateStatus = 'success'
         this.$emit('logged', {
-          name: this.$refs.loginInput.value,
+          name: this.form.instances.login.$el.value,
           ...this.login
         })
         return false

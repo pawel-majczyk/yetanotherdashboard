@@ -64,8 +64,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
   align-items: center;
+  width: 100%;
   text-align: center;
 }
 
