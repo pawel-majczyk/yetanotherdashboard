@@ -49,10 +49,11 @@ export default {
       const fieldsFilter = (value, key) => ['id', 'email'].includes(key)
       return this.users.map((user) => {
         const extractedFields = pickBy(user, fieldsFilter)
+        const [firstName, lastName] = this.extractFirstLastName(user)
         return {
           key: user.id,
-          name: this.extractFirstLastName(user)[0],
-          surname: this.extractFirstLastName(user)[1],
+          name: firstName,
+          surname: lastName,
           companyName: user.company.name,
           ...extractedFields
         }
@@ -64,7 +65,8 @@ export default {
   },
   methods: {
     ...mapActions({ fetchUsers: 'users/fetchUsers' }),
-    extractFirstLastName(user) {
+    extractFirstLastName({ name }) {
+      const nameArr = name.split(' ')
       const bannedWords = [
         'Mr.',
         'Mrs.',
@@ -75,11 +77,10 @@ export default {
         'Lord',
         'Prof.'
       ]
-      if (bannedWords.includes(user.name.split(' ')[0])) {
-        const [, ...splittedName] = user.name.split(' ')
-        return splittedName
+      if (bannedWords.includes(nameArr[0])) {
+        nameArr.shift()
       }
-      return user.name.split(' ')
+      return nameArr
     }
   }
 }
