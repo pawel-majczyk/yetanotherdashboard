@@ -12,6 +12,8 @@
         <aLayout-sider
           theme="light"
           class="dashboard__sider"
+          breakpoint="md"
+          collapsed-width="80"
           :default-collapsed="false"
         >
           <aMenu
