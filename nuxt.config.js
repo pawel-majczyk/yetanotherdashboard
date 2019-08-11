@@ -41,6 +41,10 @@ export default {
   //   }
   // ],
   /* Plugins to load before mounting the App */
+  server: {
+    port: '8080',
+    host: '0.0.0.0'
+  },
   plugins: ['@/plugins/antd-ui'],
   /*
    ** Nuxt.js dev-modules
