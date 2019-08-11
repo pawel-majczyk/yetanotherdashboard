@@ -6,7 +6,12 @@
           <h1>Login</h1>
         </aRow>
         <aRow type="flex" justify="center" align="middle">
-          <aForm :form="form" class="login-form" @submit="checkCredentials">
+          <aForm
+            :form="form"
+            class="login-form"
+            :class="loginFailedClass"
+            @submit.prevent.stop="checkCredentials"
+          >
             <aForm-item
               :validate-status="login.validateStatus"
               :help="login.errorMsg || loginRule"
@@ -95,6 +100,9 @@ export default {
   computed: {
     validData() {
       return `user: "${this.validUsername}" | password: "${this.validPassword}"`
+    },
+    loginFailedClass() {
+      return this.lock ? 'animation-shake' : ''
     }
   },
   mounted() {
@@ -121,8 +129,8 @@ export default {
     },
     checkCredentials(e) {
       e.preventDefault()
-      this.form.validateFields()
       if (this.lock) return
+      this.form.validateFields()
       if (
         e.target[0].value === this.validUsername &&
         e.target[1].value === this.validPassword

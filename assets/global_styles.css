@@ -11,3 +11,25 @@
 .page-enter, .page-leave-active {
   opacity: 0;
 }
+
+.animation-shake {
+  animation-duration: 0.05s;
+  animation-name: shake;
+  animation-iteration-count: 5;
+  animation-direction: normal;
+}
+
+@keyframes shake {
+  from {
+    transform: translateX(0)
+  }
+  25% {
+    transform: translateX(-5%)
+  }
+  75% {
+    transform: translateX(5%)
+  }
+  to {
+    transform: translateX(0)
+  }
+}
