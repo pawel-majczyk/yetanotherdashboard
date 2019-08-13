@@ -6,7 +6,8 @@ const routerBase =
   process.env.DEPLOY_ENV === 'GH_PAGES'
     ? {
         router: {
-          base: '/yetanotherdashboard/'
+          base: '/yetanotherdashboard/',
+          mode: 'hash'
         }
       }
     : {}
