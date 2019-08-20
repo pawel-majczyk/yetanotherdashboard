@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "dev-debug": "node_modules/.bin/nuxt --inspect",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",

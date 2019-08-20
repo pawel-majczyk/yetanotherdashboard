@@ -15,7 +15,6 @@ const routerBase =
 export default {
   ...routerBase,
   mode: 'spa',
-  /* Headers of the page */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -29,37 +28,22 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-  /* Customize the progress-bar color */
   loading: { color: '#fff' },
-  /* Global CSS */
   css: ['~/assets/global_styles.css'],
-  // ant-design-vue - disabled bacause babel-import-plugin handles
-  // css: ['ant-design-vue/dist/antd.min.css'],
-  // css: [
-  //   {
-  //     src: 'ant-design-vue/dist/antd.less',
-  //     lang: 'less'
-  //   }
-  // ],
-  /* Plugins to load before mounting the App */
   server: {
     port: '8080',
     host: '0.0.0.0'
   },
   plugins: ['@/plugins/antd-ui'],
-  /*
-   ** Nuxt.js dev-modules
-   */
-  devModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
-  ],
-  /* Nuxt.js modules */
+  devModules: ['@nuxtjs/eslint-module'],
   modules: [],
-  /* Build configuration */
   build: {
-    /* You can extend webpack config here */
     extend(config, ctx) {
+      if (ctx.isDev) {
+        console.log(`ctx.isDev: ${ctx.isDev}`)
+        console.log(ctx.isClient)
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+      }
       ctx.loaders.less.javascriptEnabled = true
     },
     babel: {
