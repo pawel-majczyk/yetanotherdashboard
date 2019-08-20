@@ -1,5 +1,5 @@
-import getUsers from '~/middleware/api'
-import { API_URL } from '~/middleware/constants'
+import getUsers from '~/services/api'
+import { API_URL } from '~/assets/constants'
 
 export const state = () => ({
   userList: []

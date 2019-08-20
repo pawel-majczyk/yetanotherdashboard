@@ -84,7 +84,7 @@ import {
   EMAIL_PATTERN,
   VALID_USERNAME,
   VALID_PASSWORD
-} from '~/middleware/constants'
+} from '~/assets/constants'
 
 export default {
   data() {
