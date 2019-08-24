@@ -3,21 +3,29 @@
     <aRow type="flex" justify="center" align="middle" class="login-form">
       <aCol :xs="20" :sm="12" :md="10">
         <aRow type="flex" justify="center" align="middle">
-          <h1>Login</h1>
+          <h1 class="login-form__title">
+            Login
+            <a-icon v-if="loggingStatus === 'validating'" type="loading" />
+          </h1>
         </aRow>
         <aRow type="flex" justify="center" align="middle">
           <aForm
             layout="vertical"
             :form="form"
             class="login-form__fields"
-            :class="loginFailedClass"
-            @submit.prevent.stop="checkCredentials"
+            :class="formSubmitFailedClass"
+            @submit.prevent="handleSubmit"
           >
             <aForm-item
-              :validate-status="login.validateStatus"
-              :help="login.errorMsg || loginRule"
+              :validate-status="loginField.validateStatus"
+              :help="
+                loginField.validateStatus === 'success'
+                  ? '✔'
+                  : 'Login has to be an e-mail adress'
+              "
             >
               <aInput
+                ref="loginInput"
                 v-decorator="[
                   'login',
                   {
@@ -31,20 +39,22 @@
                 ]"
                 name="login"
                 autocomplete="username"
-                :disabled="lock"
+                :disabled="isFormLocked"
                 placeholder="Username"
                 @change="handleLoginChange"
-              ></aInput>
+              >
+              </aInput>
             </aForm-item>
             <aForm-item>
               <aInput
+                ref="passwordInput"
                 v-decorator="[
                   'password',
                   {
                     rules: [
                       {
                         required: true,
-                        message: 'Cannot be empty!'
+                        message: 'Password cannot be empty!'
                       }
                     ]
                   }
@@ -52,25 +62,24 @@
                 autocomplete="current-password"
                 placeholder="Password"
                 type="password"
-                >password
-              </aInput>
+              ></aInput>
             </aForm-item>
             <aRow type="flex" justify="space-between" align="middle">
               <a
                 href="#"
                 title="Click to get your login data reminded"
-                @click="remindPassword"
+                @click="handleRemindPassword"
               >
                 Password forgotten
               </a>
               <aButton
-                :type="!lock ? 'primary' : 'danger'"
-                :icon="!lock ? 'unlock' : 'lock'"
-                :disabled="lock"
+                :disabled="isFormLocked"
+                :type="!isFormLocked ? 'primary' : 'danger'"
+                :icon="!isFormLocked ? 'unlock' : 'lock'"
                 html-type="submit"
                 size="large"
-                >Login</aButton
-              >
+                >Login
+              </aButton>
             </aRow>
           </aForm>
         </aRow>
@@ -87,72 +96,70 @@ import {
 } from '~/assets/constants'
 
 export default {
+  props: {
+    loggingStatus: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       form: this.$form.createForm(this),
-      loginRule: 'Login has to be an e-mail adress',
-      login: {},
-      validUsername: VALID_USERNAME,
-      validPassword: VALID_PASSWORD,
-      lock: false
+      loginFieldValue: '',
+      loginField: {
+        validateStatus: '',
+        value: ''
+      },
+      isFormLocked: false
     }
   },
   computed: {
     validData() {
-      return `user: "${this.validUsername}" | password: "${this.validPassword}"`
+      return `user: "${VALID_USERNAME}" | password: "${VALID_PASSWORD}"`
     },
-    loginFailedClass() {
-      return this.lock ? 'animation-shake' : ''
+    formSubmitFailedClass() {
+      return this.loggingStatus === 'error' ? 'animation-shake' : ''
+    }
+  },
+  watch: {
+    loggingStatus(newStatus) {
+      if (newStatus === 'validating') {
+        this.isFormLocked = true
+      } else {
+        this.isFormLocked = false
+      }
     }
   },
   mounted() {
-    this.form.instances.login.$el.focus()
+    this.$refs.loginInput.focus()
   },
   methods: {
-    remindPassword(e) {
+    handleLoginChange(e) {
+      this.loginFieldValue = e.target.value
+      this.loginField.validateStatus = this.validateLoginName(
+        this.loginFieldValue
+      )
+    },
+    validateLoginName: (name) =>
+      EMAIL_PATTERN.test(name) ? 'success' : 'error',
+
+    async handleSubmit(e) {
+      await this.form.validateFields().catch((problems) => {
+        this.isFormLocked = true
+        setTimeout(() => {
+          this.isFormLocked = false
+        }, 500)
+      })
+      if (this.isFormLocked) return false
+      const { login, password } = this.form.getFieldsValue()
+      this.$emit('loginAttempt', {
+        login,
+        password
+      })
+    },
+    handleRemindPassword(e) {
       e.preventDefault()
       alert(this.validData)
-    },
-    handleLoginChange(e) {
-      this.login = this.validateLoginName(e.target.value)
-    },
-    validateLoginName(name) {
-      if (EMAIL_PATTERN.test(name))
-        return {
-          validateStatus: 'success',
-          errorMsg: '✔'
-        }
-      return {
-        validateStatus: 'error',
-        errorMsg: '❌ This login is not a valid e-mail!'
-      }
-    },
-    checkCredentials(e) {
-      e.preventDefault()
-      if (this.lock) return false
-      this.form.validateFields()
-      if (
-        e.target[0].value === this.validUsername &&
-        e.target[1].value === this.validPassword
-      ) {
-        console.log('Mr. Anderson, welcome back! We missed you...')
-        this.login.validateStatus = 'success'
-        this.$emit('logged', {
-          name: this.form.instances.login.$el.value,
-          ...this.login
-        })
-        return false
-      } else {
-        this.lock = true
-        this.login = {
-          validateStatus: 'error',
-          errorMsg: 'Incorrect login or password'
-        }
-        setTimeout(() => {
-          this.lock = false
-        }, 1500)
-        return false
-      }
     }
   }
 }
@@ -161,5 +168,9 @@ export default {
 <style>
 .login-form__fields {
   width: 100%;
+}
+.login-form__title {
+  text-align: left;
+  flex-basis: 100%;
 }
 </style>

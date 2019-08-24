@@ -5,12 +5,23 @@
         Yet Another Dashboard
       </h1>
       <h2 class="title__subtext">
-        simple dashboard prototype
+        <q>
+          <strong>
+            The purpose of visualization is <em>insight</em>, not pictures.
+          </strong>
+        </q>
+        <br />
+        ―Ben Shneiderman
       </h2>
     </aCol>
     <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login-view">
       <transition name="page" mode="out-in" @after-enter="focusForEnter">
-        <LoginForm v-if="!isLogged" key="isLogged" @logged="handleLogin" />
+        <LoginForm
+          v-if="!isLogged"
+          key="isLogged"
+          :logging-status="loggingStatus"
+          @loginAttempt="handleLoginAttempt"
+        />
         <router-link
           v-if="isLogged"
           ref="enter"
@@ -33,7 +44,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import LoginForm from '~/components/LoginForm.vue'
 
 export default {
@@ -41,19 +52,18 @@ export default {
     LoginForm
   },
   computed: {
-    isLogged() {
-      return this.$store.state.login.userLogged
-    }
+    ...mapState('login', {
+      loggingStatus: (state) => state.loggingStatus,
+      isLogged: (state) => state.userLogged
+    })
   },
   methods: {
-    ...mapMutations({ logUserIn: 'login/logUserIn' }),
-    handleLogin(payload) {
-      if (payload.validateStatus === 'success') {
-        this.logUserIn(payload.name)
-      }
+    ...mapActions({ tryLoggingIn: 'login/tryLoggingIn' }),
+    handleLoginAttempt(payload) {
+      this.tryLoggingIn(payload)
     },
     focusForEnter() {
-      this.$nextTick(() => this.$refs.enter.$el.focus())
+      // this.$nextTick(() => this.$refs.enter.$el.focus())
     }
   }
 }
@@ -86,9 +96,11 @@ export default {
 .title__subtext {
   padding-bottom: 5px;
   font-weight: 300;
-  font-size: 2.25rem;
+  font-size: 1.25rem;
   word-spacing: 5px;
   color: #666;
+  text-align: right;
+  padding: 1em;
 }
 
 .links {
