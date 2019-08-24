@@ -5,7 +5,6 @@
         <aRow type="flex" justify="center" align="middle">
           <h1 class="login-form__title">
             Login
-            <a-icon v-if="loggingStatus === 'validating'" type="loading" />
           </h1>
         </aRow>
         <aRow type="flex" justify="center" align="middle">
@@ -64,22 +63,30 @@
                 type="password"
               ></aInput>
             </aForm-item>
-            <aRow type="flex" justify="space-between" align="middle">
-              <a
-                href="#"
-                title="Click to get your login data reminded"
-                @click="handleRemindPassword"
-              >
-                Password forgotten
-              </a>
-              <aButton
-                :disabled="isFormLocked"
-                :type="!isFormLocked ? 'primary' : 'danger'"
-                :icon="!isFormLocked ? 'unlock' : 'lock'"
-                html-type="submit"
-                size="large"
-                >Login
-              </aButton>
+            <aRow type="flex" justify="space-around" align="middle">
+              <aCol span="10">
+                <a
+                  href="#"
+                  title="Click to get your login data reminded"
+                  @click="handleRemindPassword"
+                >
+                  Password forgotten
+                </a>
+              </aCol>
+              <aCol span="10">
+                <aButton
+                  :disabled="isFormLocked"
+                  :type="!isFormLocked ? 'primary' : 'dashed'"
+                  :icon="!isFormLocked ? 'unlock' : 'lock'"
+                  html-type="submit"
+                  size="large"
+                  block
+                  ><template v-if="loggingStatus === 'validating'">
+                    Wait...<a-icon type="loading" />
+                  </template>
+                  <span v-else>Login</span>
+                </aButton>
+              </aCol>
             </aRow>
           </aForm>
         </aRow>
@@ -170,7 +177,7 @@ export default {
   width: 100%;
 }
 .login-form__title {
-  text-align: left;
+  text-align: center;
   flex-basis: 100%;
 }
 </style>

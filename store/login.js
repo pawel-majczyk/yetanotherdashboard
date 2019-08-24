@@ -42,11 +42,11 @@ export const actions = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (login === VALID_USERNAME && password === VALID_PASSWORD) {
-          resolve('valid')
+          resolve('success')
         } else {
           reject(new Error('invalid credentials'))
         }
-      }, 2500)
+      }, 800)
     })
   }
 }
