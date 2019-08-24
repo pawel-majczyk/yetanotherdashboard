@@ -16,35 +16,7 @@
           collapsed-width="80"
           :default-collapsed="false"
         >
-          <aMenu
-            :default-selected-keys="['2']"
-            mode="inline"
-            theme="light"
-            :inline-collapsed="collapsed"
-          >
-            <aMenu-item key="1">
-              <router-link to="/dashboard/inbox">
-                <aIcon type="inbox" />
-                <span>Inbox</span>
-              </router-link>
-            </aMenu-item>
-            <aMenu-item key="2">
-              <router-link to="/dashboard/users">
-                <aIcon type="database" />
-                <span>User's Databae</span>
-              </router-link>
-            </aMenu-item>
-            <aMenu-item key="3">
-              <router-link to="/dashboard/btc-market">
-                <aIcon type="area-chart" />
-                <span>BTC Market</span>
-              </router-link>
-            </aMenu-item>
-            <aMenu-item key="4" @click="handleLogout">
-              <aIcon type="logout" />
-              <span>Logout</span>
-            </aMenu-item>
-          </aMenu>
+          <DashboardMenu />
         </aLayout-sider>
         <aLayout-content class="dashboard__router-view-content">
           <transition name="router-view" mode="out-in">
@@ -60,16 +32,12 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
+import DashboardMenu from '~/components/DashboardMenu.vue'
 import UserList from '~/components/UserList.vue'
 
 export default {
-  components: { UserList },
-  data() {
-    return {
-      collapsed: true
-    }
-  },
+  components: { UserList, DashboardMenu },
   computed: {
     ...mapGetters({
       getUserName: 'login/getLoggedUserName'
@@ -79,13 +47,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({ logUserOut: 'login/logUserOut' }),
     toggleCollapsed() {
       this.collapsed = !this.collapsed
-    },
-    handleLogout(payload) {
-      this.logUserOut()
-      this.$router.push('/')
     }
   },
   middleware: 'login-redirect'
