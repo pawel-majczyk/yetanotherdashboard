@@ -1,14 +1,14 @@
 <template>
-  <aLayout class="base-container dashboard">
-    <aLayout-header class="dashboard__header">
+  <a-layout class="base-container dashboard">
+    <a-layout-header class="dashboard__header">
       <header class="dashboard__header-title">
         <router-link slot="header" to="/">
-          <h1><aIcon type="user" /> Welcome, {{ getUserName }}</h1>
+          <h1><a-icon type="user" /> Welcome, {{ getUserName }}</h1>
         </router-link>
       </header>
-    </aLayout-header>
-    <aLayout>
-      <aLayout-sider
+    </a-layout-header>
+    <a-layout>
+      <a-layout-sider
         theme="light"
         class="dashboard__sider"
         breakpoint="md"
@@ -16,12 +16,12 @@
         :default-collapsed="false"
       >
         <DashboardMenu />
-      </aLayout-sider>
-      <aLayout-content class="dashboard__router-view-content">
+      </a-layout-sider>
+      <a-layout-content class="dashboard__router-view-content">
         <nuxt />
-      </aLayout-content>
-    </aLayout>
-  </aLayout>
+      </a-layout-content>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script>

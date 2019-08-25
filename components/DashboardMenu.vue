@@ -1,33 +1,33 @@
 <template>
-  <aMenu
+  <a-menu
     :default-selected-keys="['2']"
     mode="inline"
     theme="light"
     :inline-collapsed="collapsed"
   >
-    <aMenu-item key="1">
+    <a-menu-item key="1">
       <router-link to="/dashboard/inbox">
-        <aIcon type="inbox" />
+        <a-icon type="inbox" />
         <span>Inbox</span>
       </router-link>
-    </aMenu-item>
-    <aMenu-item key="2">
+    </a-menu-item>
+    <a-menu-item key="2">
       <router-link to="/dashboard/users">
-        <aIcon type="database" />
+        <a-icon type="database" />
         <span>User's Databae</span>
       </router-link>
-    </aMenu-item>
-    <aMenu-item key="3">
+    </a-menu-item>
+    <a-menu-item key="3">
       <router-link to="/dashboard/btc-market">
-        <aIcon type="area-chart" />
+        <a-icon type="area-chart" />
         <span>BTC Market</span>
       </router-link>
-    </aMenu-item>
-    <aMenu-item key="4" @click="handleLogout">
-      <aIcon type="logout" />
+    </a-menu-item>
+    <a-menu-item key="4" @click="handleLogout">
+      <a-icon type="logout" />
       <span>Logout</span>
-    </aMenu-item>
-  </aMenu>
+    </a-menu-item>
+  </a-menu>
 </template>
 
 <script>

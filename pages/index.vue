@@ -1,6 +1,6 @@
 <template>
   <div class="base-container container">
-    <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="title">
+    <a-col :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="title">
       <h1 class="title__text">
         Yet Another Dashboard
       </h1>
@@ -13,8 +13,8 @@
         <br />
         ―Ben Shneiderman
       </h2>
-    </aCol>
-    <aCol :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login-view">
+    </a-col>
+    <a-col :xs="24" :sm="22" :md="20" :lg="20" :xl="14" class="login-view">
       <transition name="page" mode="out-in" @after-enter="focusForEnter">
         <LoginForm
           v-if="!isLogged"
@@ -29,17 +29,17 @@
           to="dashboard"
           class="login-view__enter-dashboard-btn"
         >
-          <aButton
+          <a-Button
             type="default"
             size="large"
             class="login-view__enter-dashboard-btn"
           >
             Succesfully logged in! Go to dashboard
-            <aIcon type="right" />
-          </aButton>
+            <a-icon type="right" />
+          </a-Button>
         </router-link>
       </transition>
-    </aCol>
+    </a-col>
   </div>
 </template>
 

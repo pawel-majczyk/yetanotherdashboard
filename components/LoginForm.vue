@@ -1,14 +1,14 @@
 <template>
   <div>
-    <aRow type="flex" justify="center" align="middle" class="login-form">
-      <aCol :xs="20" :sm="12" :md="10">
-        <aRow type="flex" justify="center" align="middle">
+    <a-row type="flex" justify="center" align="middle" class="login-form">
+      <a-col :xs="20" :sm="12" :md="10">
+        <a-row type="flex" justify="center" align="middle">
           <h1 class="login-form__title">
             Login
           </h1>
-        </aRow>
-        <aRow type="flex" justify="center" align="middle">
-          <aForm
+        </a-row>
+        <a-row type="flex" justify="center" align="middle">
+          <a-form
             layout="vertical"
             :form="form"
             class="login-form__fields"
@@ -22,7 +22,7 @@
               "
               :validate-status="loginValidateError() ? 'error' : loggingStatus"
             >
-              <aInput
+              <a-input
                 id="login"
                 ref="loginInput"
                 v-decorator="[
@@ -42,10 +42,10 @@
                 :disabled="isFormLocked"
                 placeholder="Username"
               >
-              </aInput>
+              </a-input>
             </aForm-item>
             <aForm-item>
-              <aInput
+              <a-input
                 id="password"
                 v-decorator="[
                   'password',
@@ -62,10 +62,10 @@
                 placeholder="Password"
                 type="password"
                 :disabled="isFormLocked"
-              ></aInput>
+              ></a-input>
             </aForm-item>
-            <aRow type="flex" justify="space-around" align="middle">
-              <aCol span="10">
+            <a-row type="flex" justify="space-around" align="middle">
+              <a-col span="10">
                 <a
                   href="#"
                   title="Click to get your login data reminded"
@@ -73,9 +73,9 @@
                 >
                   Password forgotten
                 </a>
-              </aCol>
-              <aCol span="10">
-                <aButton
+              </a-col>
+              <a-col span="10">
+                <a-Button
                   :disabled="isFormLocked"
                   :type="!isFormLocked ? 'primary' : 'dashed'"
                   :icon="!isFormLocked ? 'unlock' : 'lock'"
@@ -86,13 +86,13 @@
                     Wait...<a-icon type="loading" />
                   </template>
                   <span v-else>Login</span>
-                </aButton>
-              </aCol>
-            </aRow>
-          </aForm>
-        </aRow>
-      </aCol>
-    </aRow>
+                </a-Button>
+              </a-col>
+            </a-row>
+          </a-form>
+        </a-row>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
