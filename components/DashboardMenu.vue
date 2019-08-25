@@ -40,8 +40,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({ logUserOut: 'login/logUserOut' }),
+    ...mapMutations({
+      logUserOut: 'login/logUserOut',
+      replaceUserlist: 'users/SET_USERLIST'
+    }),
     handleLogout(payload) {
+      this.replaceUserlist([])
       this.logUserOut()
       this.$router.push('/')
     }

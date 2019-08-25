@@ -20,6 +20,8 @@ export const mutations = {
     state.userLogged = true
   },
   logUserOut(state) {
+    state.userName = ''
+    state.loggingStatus = ''
     state.userLogged = false
   },
   changeLoggingStatus(state, status) {
