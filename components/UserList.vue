@@ -1,12 +1,11 @@
 <template>
   <div>
-    <aTable :columns="columns" :data-source="usersNormalized" size="large" />
+    <aTable :columns="columns" :data-source="userList" size="large" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import pickBy from 'lodash.pickby'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -20,10 +19,6 @@ export default {
           title: 'Name',
           dataIndex: 'name'
         },
-        // {
-        //   title: 'Surname',
-        //   dataIndex: 'surname'
-        // },
         {
           title: 'E-mail',
           dataIndex: 'email'
@@ -36,51 +31,15 @@ export default {
     }
   },
   computed: {
-    users: {
-      get() {
-        return this.$store.state.users.userList
-      },
-      set(list) {
-        return this.$store.commit('users/SET_USERLIST', list)
-      }
-    },
-    usersNormalized() {
-      const fieldsFilter = (value, key) => ['id', 'email'].includes(key)
-      return this.users.map((user) => {
-        const extractedFields = pickBy(user, fieldsFilter)
-        const [firstName, lastName] = this.extractFirstLastName(user)
-        return {
-          key: user.id,
-          name: firstName,
-          surname: lastName,
-          companyName: user.company.name,
-          ...extractedFields
-        }
-      })
-    }
+    ...mapState('users', {
+      userList: (state) => state.userList
+    })
   },
   async created() {
     await this.fetchUsers(this.API_URL)
   },
   methods: {
-    ...mapActions({ fetchUsers: 'users/fetchUsers' }),
-    extractFirstLastName({ name }) {
-      const nameArr = name.split(' ')
-      const bannedWords = [
-        'Mr.',
-        'Mrs.',
-        'Miss',
-        'Ms.',
-        'Dr',
-        'Sir',
-        'Lord',
-        'Prof.'
-      ]
-      if (bannedWords.includes(nameArr[0])) {
-        nameArr.shift()
-      }
-      return nameArr
-    }
+    ...mapActions({ fetchUsers: 'users/fetchUsers' })
   }
 }
 </script>
