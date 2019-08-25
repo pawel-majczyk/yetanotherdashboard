@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <main>
     <transition name="router-view" mode="out-in">
       <router-view />
     </transition>
     <template v-if="isHomePage">
       <UserList />
     </template>
-  </div>
+  </main>
 </template>
 
 <script>

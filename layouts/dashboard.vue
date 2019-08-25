@@ -1,11 +1,11 @@
 <template>
   <aLayout class="base-container dashboard">
     <aLayout-header class="dashboard__header">
-      <div class="dashboard__header-title">
+      <header class="dashboard__header-title">
         <router-link slot="header" to="/">
           <h1><aIcon type="user" /> Welcome, {{ getUserName }}</h1>
         </router-link>
-      </div>
+      </header>
     </aLayout-header>
     <aLayout>
       <aLayout-sider
