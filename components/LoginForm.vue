@@ -15,22 +15,17 @@
             :class="formSubmitFailedClass"
             @submit.prevent="handleSubmit"
           >
-            <aForm-item
-              :validate-status="loginField.validateStatus"
-              :help="
-                loginField.validateStatus === 'success'
-                  ? '✔'
-                  : 'Login has to be an e-mail adress'
-              "
-            >
+            <aForm-item>
               <aInput
+                id="login"
                 ref="loginInput"
                 v-decorator="[
                   'login',
                   {
                     rules: [
                       {
-                        validate: validateLoginName,
+                        required: true,
+                        type: 'email',
                         message: 'It has to be an e-mail address!'
                       }
                     ]
@@ -40,13 +35,12 @@
                 autocomplete="username"
                 :disabled="isFormLocked"
                 placeholder="Username"
-                @change="handleLoginChange"
               >
               </aInput>
             </aForm-item>
             <aForm-item>
               <aInput
-                ref="passwordInput"
+                id="password"
                 v-decorator="[
                   'password',
                   {
@@ -61,6 +55,7 @@
                 autocomplete="current-password"
                 placeholder="Password"
                 type="password"
+                :disabled="isFormLocked"
               ></aInput>
             </aForm-item>
             <aRow type="flex" justify="space-around" align="middle">
@@ -96,11 +91,7 @@
 </template>
 
 <script>
-import {
-  EMAIL_PATTERN,
-  VALID_USERNAME,
-  VALID_PASSWORD
-} from '~/assets/constants'
+import { VALID_USERNAME, VALID_PASSWORD } from '~/assets/constants'
 
 export default {
   props: {
@@ -141,21 +132,12 @@ export default {
     this.$refs.loginInput.focus()
   },
   methods: {
-    handleLoginChange(e) {
-      this.loginFieldValue = e.target.value
-      this.loginField.validateStatus = this.validateLoginName(
-        this.loginFieldValue
-      )
-    },
-    validateLoginName: (name) =>
-      EMAIL_PATTERN.test(name) ? 'success' : 'error',
-
     async handleSubmit(e) {
       await this.form.validateFields().catch((problems) => {
         this.isFormLocked = true
         setTimeout(() => {
           this.isFormLocked = false
-        }, 500)
+        }, 250)
       })
       if (this.isFormLocked) return false
       const { login, password } = this.form.getFieldsValue()

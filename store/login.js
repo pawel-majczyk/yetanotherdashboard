@@ -46,7 +46,7 @@ export const actions = {
         } else {
           reject(new Error('invalid credentials'))
         }
-      }, 800)
+      }, 1200)
     })
   }
 }
