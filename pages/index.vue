@@ -63,7 +63,7 @@ export default {
       this.tryLoggingIn(payload)
     },
     focusForEnter() {
-      // this.$nextTick(() => this.$refs.enter.$el.focus())
+      this.$nextTick(() => this.$refs.enter.$el.focus())
     }
   }
 }
