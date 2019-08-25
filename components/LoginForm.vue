@@ -15,7 +15,13 @@
             :class="formSubmitFailedClass"
             @submit.prevent="handleSubmit"
           >
-            <aForm-item>
+            <aForm-item
+              :help="
+                loginValidateError() ||
+                  (loggingStatus === 'error' && 'Login failed')
+              "
+              :validate-status="loginValidateError() ? 'error' : loggingStatus"
+            >
               <aInput
                 id="login"
                 ref="loginInput"
@@ -103,11 +109,6 @@ export default {
   data() {
     return {
       form: this.$form.createForm(this),
-      loginFieldValue: '',
-      loginField: {
-        validateStatus: '',
-        value: ''
-      },
       isFormLocked: false
     }
   },
@@ -132,6 +133,9 @@ export default {
     this.$refs.loginInput.focus()
   },
   methods: {
+    loginValidateError() {
+      return this.form.getFieldError('login')
+    },
     async handleSubmit(e) {
       await this.form.validateFields().catch((problems) => {
         this.isFormLocked = true
