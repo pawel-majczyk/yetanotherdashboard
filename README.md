@@ -2,6 +2,10 @@
 
 > simple dashboard prototype
 
+## Live deployment:
+https://pawel-majczyk.github.io/yetanotherdashboard/
+
+
 ## Build Setup
 
 ``` bash
